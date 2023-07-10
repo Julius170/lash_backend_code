@@ -14,7 +14,7 @@ const config = {
   url: "https://u596h.erprev.com/api/1.0/get-products-list/json",
   headers: {
     Authorization:
-      "process.env.AUTH_KEY;",
+      "Basic ZDFkMjA3OGQtMjVkYi00MzNiLWI2Y2ItZTkxZGM5Zjg3OWUxOjQ3MWZiMGJhYTY2MDc1Y2FjNjczMTM3ZjliN2ViNjFlZTZhOTc1MzA=",
   },
 };
 
