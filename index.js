@@ -22,6 +22,15 @@ const config = {
 
 products = [];
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 http: app.get("/api/", (req, res) => {
   res.json("Welcome to Lash Interior Data");
   // console.log("Welcome to Lash Interior Data");
@@ -31,7 +40,7 @@ app.get("/api/products", (req, res) => {
   axios.request(config).then(async (response) => {
     products = await response.data;
     console.log("running...");
-    console.log(response);
+    // console.log(response);
     res.json(products.records);
   });
 });
