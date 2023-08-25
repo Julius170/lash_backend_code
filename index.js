@@ -83,7 +83,7 @@ app.get("/api/products", async (req, res) => {
     const randomProducts = getRandomProducts(allProducts, 5); // Change '5' to the desired number of random products
 
     // Filter products based on a class or other parameter
-    const filteredProducts = filterProductsByClass(randomProducts, "class"); // Change 'classA' to the desired class
+    const filteredProducts = filterProductsByClass(randomProducts, "chair"); // Change 'classA' to the desired class
 
     res.json(filteredProducts);
   } catch (error) {
