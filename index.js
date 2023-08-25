@@ -45,7 +45,6 @@
 //   });
 // });
 // app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
-
 const PORT = process.env.PORT || 3000;
 const express = require("express");
 const axios = require("axios");
@@ -79,26 +78,26 @@ app.get("/api/products", async (req, res) => {
     const response = await axios.request(config);
     const allProducts = response.data.records;
 
-    // Generate a random list of products
-    const randomProducts = getRandomProducts(allProducts, 5); // Change '5' to the desired number of random products
+    // Filter items with class "chair"
+    const chairProducts = allProducts.filter(product => product.class === "chair");
 
-    // Filter products based on a class or other parameter
-    const filteredProducts = filterProductsByClass(randomProducts, "chair"); // Change 'classA' to the desired class
+    // Randomly shuffle "chair" items for rendering
+    const randomChairProducts = shuffleArray(chairProducts);
 
-    res.json(filteredProducts);
+    res.json(randomChairProducts);
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ error: "An error occurred" });
   }
 });
 
-function getRandomProducts(products, count) {
-  const shuffledProducts = products.sort(() => 0.5 - Math.random());
-  return shuffledProducts.slice(0, count);
-}
-
-function filterProductsByClass(products, targetClass) {
-  return products.filter(product => product.class === targetClass);
+function shuffleArray(array) {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
 }
 
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
