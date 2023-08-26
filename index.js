@@ -1,17 +1,11 @@
-const PORT = process.env.PORT || 3000;
-const express = require("express");
-const axios = require("axios");
+import express from "express";
+import axios from "axios";
+import logger from "./config/logger.js";
+import config from "./config/config.js";
+
 const app = express();
 
-const config = {
-  method: "get",
-  maxBodyLength: Infinity,
-  url: "https://u596h.erprev.com/api/1.0/get-products-list/json",
-  headers: {
-    Authorization:
-      "Basic ZDFkMjA3OGQtMjVkYi00MzNiLWI2Y2ItZTkxZGM5Zjg3OWUxOjQ3MWZiMGJhYTY2MDc1Y2FjNjczMTM3ZjliN2ViNjFlZTZhOTc1MzA=",
-  },
-};
+const PORT = process.env.PORT || 3000;
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -31,21 +25,21 @@ app.get("/api/products", async (req, res) => {
     const response = await axios.request(config);
     const allProducts = response.data.records;
 
-    console.log("Total products:", allProducts.length); // Log total products
+    logger.info(`Total products:, ${allProducts.length}`); // Log total products
 
     // Filter items with class "chair"
     const chairProducts = allProducts.filter(
       (product) => product.Class === "Chair"
     );
 
-    console.log("Chair products:", chairProducts.length); // Log chair products
+    logger.info(`Chair products: ${chairProducts.length}`); // Log chair products
 
     // Randomly shuffle "chair" items for rendering
     const randomChairProducts = shuffleArray(chairProducts);
 
-    res.json(chairProducts);
+    res.json(randomChairProducts);
   } catch (error) {
-    console.error("Error fetching products:", error);
+    logger.error(`Error fetching products: ${error}`);
     res.status(500).json({ error: "An error occurred" });
   }
 });
@@ -59,4 +53,4 @@ function shuffleArray(array) {
   return shuffledArray;
 }
 
-app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
+app.listen(PORT, () => logger.info(`Server running on PORT ${PORT}`));
