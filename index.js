@@ -2,7 +2,8 @@ import express from "express";
 import axios from "axios";
 import logger from "./config/logger.js";
 import config from "./config/config.js";
-
+import shuffleArray from "./shuffleArray.js";
+// import fetchAndStoreProducts from "./randomness.js";
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -40,7 +41,7 @@ app.get("/api/products", async (req, res) => {
 
       // Filter items with class "chair"
       const chairProducts = allProducts.filter(
-        (product) => product.Class === "Chair"
+        (product) => product.Name !== "." || product.Class === "Chair"
       );
 
       logger.info(`Chair products: ${chairProducts.length}`); // Log chair products
@@ -55,15 +56,6 @@ app.get("/api/products", async (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 });
-
-function shuffleArray(array) {
-  const shuffledArray = [...array];
-  for (let i = shuffledArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-  }
-  return shuffledArray;
-}
 
 // Initial data fetching and update
 fetchAndStoreProducts();
