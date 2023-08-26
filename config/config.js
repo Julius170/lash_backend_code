@@ -7,7 +7,7 @@ const config = {
   maxBodyLength: Infinity,
   url: "https://u596h.erprev.com/api/1.0/get-products-list/json",
   headers: {
-    Authorization: `Basic ${process.env.ERPREV_PRIVATE}`,
+    Authorization: `${process.env.ERPREV_PRIVATE}`,
   },
 };
 
