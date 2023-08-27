@@ -41,7 +41,7 @@ app.get("/api/products", async (req, res) => {
 
     // Filter items with class "chair"
     const chairProducts = allProducts.filter(
-      (product) => product.Class === "Chair"
+      (product) => product.Name !== "." || product.Class === "Chair"
     );
 
     logger.info(`Chair products: ${chairProducts.length}`); // Log chair products
