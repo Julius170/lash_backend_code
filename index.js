@@ -59,7 +59,9 @@ app.get("/api/stocks", async (req, res) => {
     // Filter items with class "chair"
     const chairProducts = allProducts.filter(
       (product) =>
-        product.Class === "Chair" && product.OfficeLocation === "LASH INTERIORS"
+        product.Class === "Chair" &&
+        product.OfficeLocation === "LASH INTERIORS" &&
+        product.Product !== "."
     );
 
     logger.info(`Chair products: ${chairProducts.length}`); // Log chair products
