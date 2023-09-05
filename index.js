@@ -16,10 +16,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/api/", (req, res) => {
-  res.json("Welcome to Lash Interior Data");
-});
-
 app.get("/api/products", async (req, res) => {
   const requestEndpoint = "get-products-list"; // Endpoint for fetching products
   try {
@@ -46,27 +42,25 @@ app.get("/api/products", async (req, res) => {
 });
 
 app.get("/api/stocks", async (req, res) => {
-  const requestEndpoint = "get-stock-list"; // Endpoint for fetching products
+  const requestEndpoint = "get-stock-list"; // Endpoint for f          rttt  etching products
+
   try {
     const response = await axios.request({
       ...config,
       url: `${baseUrl}${requestEndpoint}/json`,
     });
-    const allProducts = response.data.records;
+    const allStocks = response.data.records;
 
-    logger.info(`Total products: ${allProducts.length}`); // Log total products
+    logger.info(`Total Stocks: ${allStocks.length}`); // Log total products
 
     // Filter items with class "chair"
-    const chairProducts = allProducts.filter(
-      (product) =>
-        product.Class === "Chair" &&
-        product.OfficeLocation === "LASH INTERIORS" &&
-        product.Product !== "."
+    const chairStocks = allStocks.filter(
+      (product) => product.Class === "Chair"
     );
 
-    logger.info(`Chair products: ${chairProducts.length}`); // Log chair products
+    logger.info(`Chair products: ${chairStocks.length}`); // Log chair products
 
-    res.json(chairProducts);
+    res.json(chairStocks);
   } catch (error) {
     logger.error(`Error fetching products: ${error}`);
     res.status(500).json({ error: "An error occurred" });
