@@ -68,41 +68,41 @@ app.get("/api/stocks", async (req, res) => {
 });
 
 // New POST request endpoint for writing an invoice
-app.post("/api/write-invoice", async (req, res) => {
-  try {
-    // Extract the required parameters from the request body
-    const { currency, transdata, customerid, total } = req.body;
+// app.post("/api/write-invoice", async (req, res) => {
+//   try {
+//     // Extract the required parameters from the request body
+//     const { currency, transdata, customerid, total } = req.body;
 
-    // Create the invoice data object using the extracted parameters
-    const invoiceData = {
-      currency,
-      transdata,
-      customerid,
-      total,
-      // Add any other properties required for the invoice
-    };
+//     // Create the invoice data object using the extracted parameters
+//     const invoiceData = {
+//       currency,
+//       transdata,
+//       customerid,
+//       total,
+//       // Add any other properties required for the invoice
+//     };
 
-    // Send a POST request to the API
-    const response = await axios.post(
-      "https://u596h.erprev.com/api/1.0/write-invoice",
-      invoiceData,
-      {
-        headers: {
-          Authorization:
-            "Basic ZDFkMjA3OGQtMjVkYi00MzNiLWI2Y2ItZTkxZGM5Zjg3OWUxOjQ3MWZiMGJhYTY2MDc1Y2FjNjczMTM3ZjliN2ViNjFlZTZhOTc1MzA=",
-        },
-      }
-    );
+//     // Send a POST request to the API
+//     const response = await axios.post(
+//       "https://u596h.erprev.com/api/1.0/write-invoice",
+//       invoiceData,
+//       {
+//         headers: {
+//           Authorization:
+//             "Basic ZDFkMjA3OGQtMjVkYi00MzNiLWI2Y2ItZTkxZGM5Zjg3OWUxOjQ3MWZiMGJhYTY2MDc1Y2FjNjczMTM3ZjliN2ViNjFlZTZhOTc1MzA=",
+//         },
+//       }
+//     );
 
-    // Return the response from the API to the client
-    res.json(response.data);
-  } catch (error) {
-    // Handle any errors that might occur
-    console.error("Error writing invoice:", error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while writing the invoice." });
-  }
-});
+//     // Return the response from the API to the client
+//     res.json(response.data);
+//   } catch (error) {
+//     // Handle any errors that might occur
+//     console.error("Error writing invoice:", error);
+//     res
+//       .status(500)
+//      .json({ error: "An error occurred while writing the invoice." });
+//   }
+// });
 
 app.listen(PORT, () => logger.info(`Server running on PORT ${PORT}`));
